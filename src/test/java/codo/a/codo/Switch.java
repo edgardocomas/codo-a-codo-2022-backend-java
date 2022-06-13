@@ -11,7 +11,7 @@ public class Switch {
               System.out.println("Ingrese nota");
               int nota = teclado.nextInt();
               
-              switch(key) {
+              switch(nota) {
               case 7:
             	  System.out.println("aprobado");
             	  break;
