@@ -4,9 +4,12 @@ public class FabricaDeAutos {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-			Auto fiatUno = new Auto();  // es el constructor
+		
+		
+		    Motor motorDesdeAfuera = new Motor("MCLAREN",150f);
+			Auto fiatUno = new Auto(220f,"RENAULT",motorDesdeAfuera);  // es el constructor
 			// quiero ver la velocidad del auto
-			System.out.println("velocidad actual = " + fiatUno.velocidad);
+			System.out.println("velocidad actual = " + fiatUno.getVelocidad());
 			fiatUno.encender();
 			fiatUno.encender();
 			fiatUno.apagar();
