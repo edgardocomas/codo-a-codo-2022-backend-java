@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.com.codoacodo.connection.AdministradorDeConexiones;
+import ar.com.codoacodo.daos.ProductoDAO;
 import ar.com.codoacodo.dto.Producto;
 
 @WebServlet("/api/ListadoController")
@@ -23,9 +24,13 @@ public class ListadoController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String sql = "SELECT * FROM PRODUCTO";
+		//crear la instancia DE ProductoDAO
+		ProductoDAO dao = new ProductoDAO();
 		
 		//conexion OK
 		Connection con = AdministradorDeConexiones.getConnection();
+		//invocar al metodo listarProductos()
+		List<Producto> listado = dao.listarProductos();
 		
 		try {
 			//statement 
@@ -36,7 +41,7 @@ public class ListadoController extends HttpServlet {
 			
 			List<Producto> listado = new ArrayList<>();
 			
-			while(rs.next()) {//�mientras tenga datos?
+			while(rs.next()) {//mientras tenga datos?
 				// rs > sacando los datos
 				Long idProducto = rs.getLong(1);//tomar la primer columna
 				String nombre = rs.getString(2);
@@ -59,9 +64,15 @@ public class ListadoController extends HttpServlet {
 			
 			//cierre de conexion
 			con.close();
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		//grabar el listado en el request para que lo vea la siguiente pagina
+		req.setAttribute("listado", listado);
+
+		//ir a la siguiente pagina
+		getServletContext().getRequestDispatcher("/listado.jsp").forward(req, resp);
 	}
 }
 

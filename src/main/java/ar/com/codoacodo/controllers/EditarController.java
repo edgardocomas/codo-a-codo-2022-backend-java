@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.com.codoacodo.connection.AdministradorDeConexiones;
+import ar.com.codoacodo.daos.ProductoDAO;
 import ar.com.codoacodo.dto.Producto;
 
 @WebServlet("/api/EditarController")
@@ -24,9 +25,13 @@ public class EditarController extends HttpServlet {
 		String id = req.getParameter("id");
 		
 		String sql = "SELECT * FROM PRODUCTO WHERE ID="+id;
-		
+		//Crear ProductoDAO
+		ProductoDAO dao = new ProductoDAO();
 		//conexion OK
 		Connection con = AdministradorDeConexiones.getConnection();
+		//invocar el metodo obtenerPorId(id)
+		Producto prodFromDb = dao.obtenerPorId(Long.parseLong(id));
+
 		
 		try {
 			//statement 
@@ -60,6 +65,11 @@ public class EditarController extends HttpServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		//guardar en el request el producto
+		req.setAttribute("producto", prodFromDb);
+
+		//ir a la siguiente pagina
+		getServletContext().getRequestDispatcher("/editar.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -67,15 +77,20 @@ public class EditarController extends HttpServlet {
 
 		String nombre = req.getParameter("nombre");//titulo1
 		String precio = req.getParameter("precio");//1500
+		String nombre = req.getParameter("nombre");
+		String precio = req.getParameter("precio");
 		String imagen = req.getParameter("imagen");
 		String codigo = req.getParameter("codigo");//0001
+		String codigo = req.getParameter("codigo");
 		
 		Connection con = AdministradorDeConexiones.getConnection();
 		if(con != null) { 
 			String sql = "UPDATE PRODUCTO "
 					+ " set nombre='"+nombre+"',"
 					+ " precio='"+precio+"'"
-					+ " WHERE codigo = '"+codigo+"'"; 			
+					+ " WHERE codigo = '"+codigo+"'"; 		
+			//Crear ProductoDAO
+			ProductoDAO dao = new ProductoDAO();
 		
 			try {
 				Statement st = con.createStatement();			
@@ -87,7 +102,12 @@ public class EditarController extends HttpServlet {
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		
+			//invocar actualizarProducto(params)
+		    dao.actualizarProducto(codigo, nombre, precio);
+         }
+		//ir a la siguiente pagina
+		resp.sendRedirect(req.getContextPath()+"/api/ListadoController");
 	}
 }
 
