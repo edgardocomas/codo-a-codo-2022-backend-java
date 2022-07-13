@@ -11,7 +11,7 @@
         </li>
         <li class="nav-item">
        <!--    <a class="nav-link" href="<%=request.getContextPath()%>/api/ListadoController">Listado</a> -->
-          <a class="nav-link" href="<%=request.getContextPath()%>/listado.jsp">Listado</a> 
+          <a class="nav-link" href="<%=request.getContextPath()%>/api/ListadoController">Listado</a> 
         </li>
       </ul>
       <form class="d-flex">
