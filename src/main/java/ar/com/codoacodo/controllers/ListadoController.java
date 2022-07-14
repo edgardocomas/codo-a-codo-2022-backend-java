@@ -25,12 +25,12 @@ public class ListadoController extends HttpServlet {
 		
 		String sql = "SELECT * FROM PRODUCTO";
 		//crear la instancia DE ProductoDAO
-		ProductoDAO dao = new ProductoDAO();
+		//yo ProductoDAO dao = new ProductoDAO();
 		
 		//conexion OK
 		Connection con = AdministradorDeConexiones.getConnection();
 		//invocar al metodo listarProductos()
-		List<Producto> listado = dao.listarProductos();
+		// yo List<Producto> listado = dao.listarProductos();
 		
 		try {
 			//statement 
