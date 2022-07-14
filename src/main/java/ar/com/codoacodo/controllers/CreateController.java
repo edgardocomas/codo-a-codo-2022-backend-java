@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /*HERENCIA*/
 //Create Controller es hijo de :
-@WebServlet("CreateController")
+@WebServlet("/CreateController")
 
 public class CreateController extends HttpServlet {
 	
