@@ -40,7 +40,7 @@ public class EditarController extends HttpServlet {
 			//resultset
 			ResultSet rs = st.executeQuery(sql);
 			
-			Producto prodFromDb = null;
+			prodFromDb = null;
 			
 			if(rs.next()) {//�mientras tenga datos?
 				// rs > sacando los datos
@@ -77,11 +77,9 @@ public class EditarController extends HttpServlet {
 
 		String nombre = req.getParameter("nombre");//titulo1
 		String precio = req.getParameter("precio");//1500
-		String nombre = req.getParameter("nombre");
-		String precio = req.getParameter("precio");
 		String imagen = req.getParameter("imagen");
 		String codigo = req.getParameter("codigo");//0001
-		String codigo = req.getParameter("codigo");
+		
 		
 		Connection con = AdministradorDeConexiones.getConnection();
 		if(con != null) { 
