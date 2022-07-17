@@ -1,6 +1,6 @@
 package ar.com.codoacodo.connection;
 
-import java.sql.Connection;
+c	import java.sql.Connection;
 import java.sql.DriverManager;
 
 
