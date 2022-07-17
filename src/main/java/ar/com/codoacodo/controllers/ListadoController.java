@@ -57,22 +57,18 @@ public class ListadoController extends HttpServlet {
 				listado.add(prodFromDb);
 			}
 			
-			//ir a otra pagina y ademas pasarle datos				
+			//grabar el listado en el request para que lo vea la siguiente pagina
 			req.setAttribute("listado", listado);
-			
+
+			//ir a la siguiente pagina
 			getServletContext().getRequestDispatcher("/listado.jsp").forward(req, resp);
-			
+
 			//cierre de conexion
 			con.close();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		//grabar el listado en el request para que lo vea la siguiente pagina
-		req.setAttribute("listado", listado);
-
-		//ir a la siguiente pagina
-		getServletContext().getRequestDispatcher("/listado.jsp").forward(req, resp);
 	}
 }
 
