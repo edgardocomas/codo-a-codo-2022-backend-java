@@ -25,13 +25,16 @@ public class EditarController extends HttpServlet {
 		String id = req.getParameter("id");
 		
 		String sql = "SELECT * FROM PRODUCTO WHERE ID="+id;
+		
 		//Crear ProductoDAO
 		ProductoDAO dao = new ProductoDAO();
+		
+		
+		//invocar el metodo obtenerPorId(id)
+		Producto myprodFromDb = dao.obtenerPorId(Long.parseLong(id));
+
 		//conexion OK
 		Connection con = AdministradorDeConexiones.getConnection();
-		//invocar el metodo obtenerPorId(id)
-		Producto prodFromDb = dao.obtenerPorId(Long.parseLong(id));
-
 		
 		try {
 			//statement 
@@ -40,7 +43,7 @@ public class EditarController extends HttpServlet {
 			//resultset
 			ResultSet rs = st.executeQuery(sql);
 			
-			prodFromDb = null;
+			myprodFromDb = null;
 			
 			if(rs.next()) {//�mientras tenga datos?
 				// rs > sacando los datos
@@ -52,11 +55,11 @@ public class EditarController extends HttpServlet {
 				String codigo = rs.getString(6);
 				
 				//campos crear un objeto????
-				prodFromDb = new Producto(idProducto,nombre,precio,fecha,imagen,codigo);
+				myprodFromDb = new Producto(idProducto,nombre,precio,fecha,imagen,codigo);
 			}
 			
 			//ir a otra pagina y ademas pasarle datos				
-			req.setAttribute("producto", prodFromDb);
+			req.setAttribute("producto", myprodFromDb);
 			
 			getServletContext().getRequestDispatcher("/editar.jsp").forward(req, resp);
 			
@@ -66,7 +69,7 @@ public class EditarController extends HttpServlet {
 			e.printStackTrace();
 		}
 		//guardar en el request el producto
-		req.setAttribute("producto", prodFromDb);
+		req.setAttribute("producto", my_prodFromDb);
 
 		//ir a la siguiente pagina
 		getServletContext().getRequestDispatcher("/editar.jsp").forward(req, resp);
@@ -87,8 +90,9 @@ public class EditarController extends HttpServlet {
 					+ " set nombre='"+nombre+"',"
 					+ " precio='"+precio+"'"
 					+ " WHERE codigo = '"+codigo+"'"; 		
+			
 			//Crear ProductoDAO
-			ProductoDAO dao = new ProductoDAO();
+			//ProductoDAO dao = new ProductoDAO();
 		
 			try {
 				Statement st = con.createStatement();			
@@ -102,10 +106,10 @@ public class EditarController extends HttpServlet {
 			}
 		
 			//invocar actualizarProducto(params)
-		    dao.actualizarProducto(codigo, nombre, precio);
+		    //dao.actualizarProducto(codigo, nombre, precio);
          }
 		//ir a la siguiente pagina
-		resp.sendRedirect(req.getContextPath()+"/api/ListadoController");
+		//resp.sendRedirect(req.getContextPath()+"/api/ListadoController");
 	}
 }
 

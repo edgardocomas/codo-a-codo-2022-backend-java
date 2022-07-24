@@ -11,7 +11,7 @@
 			<div class="container">
 				<section>
 					<% 
-					  	Producto producto = (Producto)request.getAttribute("producto");
+					  Producto producto = (Producto)request.getAttribute("producto");
 				  	%>
 					<h1>Editar producto ID=<%=producto.getIdProducto()%></h1>
 					<!--  JSP -->

@@ -15,6 +15,7 @@ public class ProductoDAO {
 
 	/*metodos del crud*/
 	public Producto obtenerPorId(Long id) {
+		
 		String sql = "SELECT * FROM PRODUCTO WHERE ID="+id;
 		
 		//Connection
