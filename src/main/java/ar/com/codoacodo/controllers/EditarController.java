@@ -69,7 +69,7 @@ public class EditarController extends HttpServlet {
 			e.printStackTrace();
 		}
 		//guardar en el request el producto
-		req.setAttribute("producto", my_prodFromDb);
+		req.setAttribute("producto", myprodFromDb);
 
 		//ir a la siguiente pagina
 		getServletContext().getRequestDispatcher("/editar.jsp").forward(req, resp);
