@@ -31,5 +31,22 @@ public class BuscarController extends HttpServlet {
 		//ir a la siguiente pagina
 		getServletContext().getRequestDispatcher("/listado.jsp").forward(req, resp);
 	}
+	
+//	@Override
+//	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		
+//		String nombre = req.getParameter("nombre");
+//		String precio = req.getParameter("precio");
+//		String codigo = req.getParameter("codigo");
+//		
+//		//Crear ProductoDAO
+//		ProductoDAO dao = new ProductoDAO();
+//		
+//		//invocar el metodo buscar(clave)
+//		dao.actualizarProducto(codigo, nombre, precio);
+//		
+//		//ir a la siguiente pagina
+//		resp.sendRedirect(req.getContextPath()+"/api/ListadoController");
+//	}
 }
 

@@ -1,15 +1,14 @@
 package ar.com.codoacodo.controllers;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.Statement;
 
-import ar.com.codoacodo.connection.AdministradorDeConexiones;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import ar.com.codoacodo.daos.ProductoDAO;
 
 /*HERENCIA*/
 //Create Controller es hijo de :
@@ -24,34 +23,21 @@ public class CreateController extends HttpServlet {
 		// en req viene los datos que manda el formulario html
 		//clave=valor
 			
-		String nombre = req.getParameter("nombre");//titulo1
-		String precio = req.getParameter("precio");//1500
-		String fechaCreacion = "";//damos nostros
+		String nombre = req.getParameter("nombre");
+		String precio = req.getParameter("precio");
 		String imagen = req.getParameter("imagen");
-		String codigo = req.getParameter("codigo");//0001
+		String codigo = req.getParameter("codigo");
 		
-		// pedir una Conexion: AdministradorDeConexion.getConection()
-		Connection con = AdministradorDeConexiones.getConnection();
-		if(con != null) { 
-			// insert en la db > SQL: INSERT INTO....
-			String sql = "INSERT INTO PRODUCTO (nombre, precio,fecha_creacion,imagen,codigo) ";
-			sql += "VALUES('"+nombre+"',"+precio+",CURRENT_DATE,'"+imagen+"','"+codigo+"')";
-			
-			//control de errores
-			try {
-				Statement st = con.createStatement();			
-				st.execute(sql);
-				
-				//cierre de conexion
-				con.close();
-				
-				//getServletContext().getRequestDispatcher("/api/ListadoController").forward(req, resp);
-				
-				resp.sendRedirect(req.getContextPath()+"/api/ListadoController");
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		// Crear producto DAO
+		ProductoDAO dao =new ProductoDAO();
+		
+		//ejecutar el metodo craerProducto(parametros...)
+		dao.crearProducto(nombre, Float.parseFloat(precio), imagen, codigo);
+		
+		//CTRL+SHIST+O limpia los import dejando solo los que se usan	
+		
+		// ir a la siguiente pagina
+		resp.sendRedirect(req.getContextPath()+"/api/ListadoController");
 	}
 
 

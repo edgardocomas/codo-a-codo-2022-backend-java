@@ -88,6 +88,7 @@ public class ProductoDAO {
 			
 			//cierro la conexion
 			con.close();
+			
 		} catch (SQLException e) {
 			// ERRORES
 			e.printStackTrace();
